@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EmsPredicts – Match outcome predictions</title>
+  <meta name="description" content="Win, draw or lose probabilities for upcoming football fixtures, built from each team's recent results.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Animated passing-network background (drawn in script.js) -->
+  <canvas id="pitch" aria-hidden="true"></canvas>
+
+  <header class="top">
+    <a class="brand" href="#top" aria-label="EmsPredicts home">
+      <span class="brand-ball" aria-hidden="true"></span>EmsPredicts
+    </a>
+    <nav class="account" aria-label="Account">
+      <span id="userChip" class="user-chip" hidden></span>
+      <a id="picksLink" class="link-btn" href="#picks" hidden>My picks</a>
+      <button id="signinBtn" class="btn btn-quiet" type="button">Sign in</button>
+      <button id="signupBtn" class="btn btn-solid" type="button">Create account</button>
+      <button id="signoutBtn" class="btn btn-quiet" type="button" hidden>Sign out</button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>Read the match before it kicks off.</h1>
+        <p class="lede">Win, draw and lose probabilities for upcoming fixtures, worked out from each team's latest results. Sign in to see them.</p>
+      </div>
+      <aside class="kickoff" aria-live="off">
+        <p class="kickoff-label">Next kickoff</p>
+        <p id="kickTeams" class="kickoff-teams">Loading fixtures…</p>
+        <p id="kickClock" class="kickoff-clock" aria-label="Time until kickoff">--:--:--</p>
+        <p id="kickWhen" class="kickoff-when"></p>
+      </aside>
+    </section>
+
+    <section class="board" aria-labelledby="boardTitle">
+      <h2 id="boardTitle" class="visually-hidden">Matches</h2>
+
+      <div class="controls">
+        <div id="leagueTabs" class="tabs" role="tablist" aria-label="League"></div>
+        <div class="seg" role="group" aria-label="Match list">
+          <button id="viewUpcoming" type="button" aria-pressed="true">Upcoming</button>
+          <button id="viewRecent" type="button" aria-pressed="false">Recent results</button>
+        </div>
+      </div>
+
+      <p id="status" class="status" role="status"></p>
+      <ol id="matches" class="matches"></ol>
+    </section>
+
+    <section id="picks" class="picks" hidden aria-labelledby="picksTitle">
+      <h2 id="picksTitle">My saved picks</h2>
+      <ul id="picksList" class="picks-list"></ul>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p><strong>18+ only.</strong> Predictions are probabilities, not promises: even a 70% outcome fails three times in ten. EmsPredicts does not take bets. Only stake what you can afford to lose, and seek help if betting stops being fun.</p>
+  </footer>
+
+  <!-- Sign in / Sign up -->
+  <dialog id="authDialog" aria-labelledby="authTitle">
+    <div class="dlg">
+      <button id="authClose" class="dlg-close" type="button" aria-label="Close">&times;</button>
+      <h2 id="authTitle">Sign in</h2>
+      <p id="authHint" class="hint"></p>
+
+      <div class="seg seg-wide" role="tablist" aria-label="Account">
+        <button id="tabSignin" role="tab" type="button" aria-selected="true">Sign in</button>
+        <button id="tabSignup" role="tab" type="button" aria-selected="false">Create account</button>
+      </div>
+
+      <form id="signinForm" novalidate>
+        <label for="siEmail">Email</label>
+        <input id="siEmail" name="email" type="email" autocomplete="email" required>
+        <label for="siPass">Password</label>
+        <input id="siPass" name="password" type="password" autocomplete="current-password" required>
+        <button class="btn btn-solid btn-block" type="submit">Sign in</button>
+      </form>
+
+      <form id="signupForm" novalidate hidden>
+        <label for="suName">Name</label>
+        <input id="suName" name="name" type="text" autocomplete="name" required>
+        <label for="suEmail">Email</label>
+        <input id="suEmail" name="email" type="email" autocomplete="email" required>
+        <label for="suPass">Password <span class="muted">(at least 8 characters)</span></label>
+        <input id="suPass" name="password" type="password" autocomplete="new-password" minlength="8" required>
+        <label class="check">
+          <input id="suAge" name="age" type="checkbox" required>
+          <span>I am 18 or older.</span>
+        </label>
+        <button class="btn btn-solid btn-block" type="submit">Create account</button>
+      </form>
+
+      <p id="authError" class="error" role="alert"></p>
+    </div>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
